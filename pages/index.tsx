@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
    
-      <div>
+      <div className={styles.contentStart}>
         Test
       </div>
   
