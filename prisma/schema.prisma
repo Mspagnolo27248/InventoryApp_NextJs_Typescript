@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model AssetMapping {
+  ItemCode     String  @id @db.NChar(10)
+  GL           String? @db.NChar(10)
+  GlDesc       String? @db.NChar(25)
+  GLAccount    String? @db.NChar(10)
+  Part         String? @db.NChar(10)
+  StandardCost Float?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model BeginingInv {
+  GlAccount       String? @db.NChar(10)
+  BeginInvQty     Int?
+  BeginInvDollars Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model BOM {
+  ContainerCode String? @db.NChar(10)
+  ImsCode       String? @db.NChar(10)
+  PartType      String? @db.NChar(10)
+  Unit          String? @db.NChar(10)
+  ProductKey    String? @db.NChar(10)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model EndingInv {
+  GlAccount     String? @db.NChar(10)
+  EndInvQty     Int?
+  EndInvDollats Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ExpenseDetail {
+  ProductKey              String? @db.NChar(10)
+  ExpenseGl               String? @db.NChar(10)
+  ImsCode                 String? @db.NChar(10)
+  TotalPartFillsQty       Int?
+  SpecificPartUsageQty    Int?
+  AllocatedExpenseDollars Float?
+  TotalImsUsageDollars    Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ExpenseMapping {
+  ProductKey String? @db.NChar(10)
+  ExpenseGl  String? @db.NChar(10)
+
+  @@ignore
+}
+
+model ItemModel {
+  ItemCode             String @id @db.NVarChar(10)
+  StandardCost         Float
+  BeginInvQty          Int
+  BeginInvValue        Float
+  EndInvQty            Int
+  EndInvValue          Float
+  ReceiptQty           Int
+  ReceiptValue         Float
+  UsageQty             Int
+  UsageValue           Float
+  ImsReceiptQty        Int
+  AccuralReversalQty   Int
+  AccuralReversalValue Float
+  AccuralQty           Int
+  AccuralValue         Float
+  AdjReceiptQty        Int
+  AdjReceiptValue      Float
+  AllocatedExpense     Float
+  UnallocatedExpense   Float
+  Hurdle               Float
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Receipts {
+  GlAccount    String? @db.NChar(10)
+  Journal      String? @db.NChar(10)
+  CD           String? @db.NChar(10)
+  Amount       Float?
+  Date         Int?
+  ReceiptValue Float?
+  TGDesc       String? @db.NChar(10)
+  QtyClean     Int?
+  ReceiptQty   Int?
+
+  @@ignore
+}

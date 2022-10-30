@@ -1,9 +1,21 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+
 import styles from '../styles/Home.module.css'
 
+
+
 const Home: NextPage = () => {
+
+
+
+  async function updateTableHandler(e: { preventDefault: any }){
+    e.preventDefault;
+  await fetch('/api/updateTable')
+
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +27,7 @@ const Home: NextPage = () => {
    
       <div className={styles.contentStart}>
         Test
+        <button type='button' onClick={updateTableHandler}> Update Table</button>
       </div>
   
 
