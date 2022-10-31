@@ -17,16 +17,23 @@ model AssetMapping {
 }
 
 model BOM {
+   id     Int    @id @default(autoincrement()) 
   ContainerCode String? @db.VarChar(10)
   ImsCode       String? @db.VarChar(10)
-  PartType      String? @db.VarChar(10)
+  PartType      String? @db.VarChar(100)
   Unit          String? @db.VarChar(10)
-  ProductKey    String  @id @db.VarChar(15)
+  ProductKey    String  @db.VarChar(15)
 
   @@unique([ProductKey, PartType, Unit])
 }
 
-model EndingInv {
+model EndingInventory {
+  GlAccount     String @id @db.VarChar(10)
+  EndInvQty     Int?
+  EndInvDollats Float?
+}
+
+model BeginInventory {
   GlAccount     String @id @db.VarChar(10)
   EndInvQty     Int?
   EndInvDollats Float?
@@ -107,7 +114,8 @@ model ItemModelHistory {
 }
 
 model Receipts {
-  GlAccount    String  @id @db.VarChar(10)
+      id     Int    @id @default(autoincrement()) 
+  GlAccount    String   @db.VarChar(10)
   Journal      String? @db.VarChar(10)
   CD           String? @db.VarChar(10)
   Amount       Float?
@@ -117,5 +125,5 @@ model Receipts {
   QtyClean     Int?
   ReceiptQty   Int?
 
-  @@unique([GlAccount, Journal, CD])
+
 }

@@ -22,7 +22,7 @@ export function DataContextProvider(props: any) {
     const [items, setItems] = useState<Item[]>();
   
     function updateItemsHandler(items: Item[]) {
-      setItems(items);
+      setItems(prevData=>[...items]);
     }
   
     const [expenses, setExpenses] = useState<ExpenseDetail[]>();

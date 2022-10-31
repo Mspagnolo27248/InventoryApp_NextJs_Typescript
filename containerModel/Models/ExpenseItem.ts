@@ -26,6 +26,7 @@ export class ExpenseGlAccounts {
 
 export class ExpenseDetail {
   constructor(
+    public id:number,
     public ProductKey: string,
     public ExpenseGl: string,
     public ImsCode: string,

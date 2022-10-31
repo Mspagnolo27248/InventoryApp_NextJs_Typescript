@@ -15,21 +15,30 @@ CREATE TABLE [dbo].[AssetMapping] (
 
 -- CreateTable
 CREATE TABLE [dbo].[BOM] (
+    [id] INT NOT NULL IDENTITY(1,1),
     [ContainerCode] VARCHAR(10),
     [ImsCode] VARCHAR(10),
-    [PartType] VARCHAR(10),
+    [PartType] VARCHAR(100),
     [Unit] VARCHAR(10),
     [ProductKey] VARCHAR(15) NOT NULL,
-    CONSTRAINT [BOM_pkey] PRIMARY KEY CLUSTERED ([ProductKey]),
+    CONSTRAINT [BOM_pkey] PRIMARY KEY CLUSTERED ([id]),
     CONSTRAINT [BOM_ProductKey_PartType_Unit_key] UNIQUE NONCLUSTERED ([ProductKey],[PartType],[Unit])
 );
 
 -- CreateTable
-CREATE TABLE [dbo].[EndingInv] (
+CREATE TABLE [dbo].[EndingInventory] (
     [GlAccount] VARCHAR(10) NOT NULL,
     [EndInvQty] INT,
     [EndInvDollats] FLOAT(53),
-    CONSTRAINT [EndingInv_pkey] PRIMARY KEY CLUSTERED ([GlAccount])
+    CONSTRAINT [EndingInventory_pkey] PRIMARY KEY CLUSTERED ([GlAccount])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[BeginInventory] (
+    [GlAccount] VARCHAR(10) NOT NULL,
+    [EndInvQty] INT,
+    [EndInvDollats] FLOAT(53),
+    CONSTRAINT [BeginInventory_pkey] PRIMARY KEY CLUSTERED ([GlAccount])
 );
 
 -- CreateTable
@@ -113,6 +122,7 @@ CREATE TABLE [dbo].[ItemModelHistory] (
 
 -- CreateTable
 CREATE TABLE [dbo].[Receipts] (
+    [id] INT NOT NULL IDENTITY(1,1),
     [GlAccount] VARCHAR(10) NOT NULL,
     [Journal] VARCHAR(10),
     [CD] VARCHAR(10),
@@ -122,8 +132,7 @@ CREATE TABLE [dbo].[Receipts] (
     [TGDesc] VARCHAR(100),
     [QtyClean] INT,
     [ReceiptQty] INT,
-    CONSTRAINT [Receipts_pkey] PRIMARY KEY CLUSTERED ([GlAccount]),
-    CONSTRAINT [Receipts_GlAccount_Journal_CD_key] UNIQUE NONCLUSTERED ([GlAccount],[Journal],[CD])
+    CONSTRAINT [Receipts_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
 COMMIT TRAN;
