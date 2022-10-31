@@ -8,71 +8,60 @@ datasource db {
 }
 
 model AssetMapping {
-  ItemCode     String  @id @db.NChar(10)
-  GL           String? @db.NChar(10)
-  GlDesc       String? @db.NChar(25)
-  GLAccount    String? @db.NChar(10)
-  Part         String? @db.NChar(10)
+  ItemCode     String  @id @db.VarChar(10)
+  GL           String? @db.VarChar(10)
+  GlDesc       String? @db.VarChar(100)
+  GLAccount    String? @db.VarChar(10)
+  Part         String? @db.VarChar(10)
   StandardCost Float?
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model BeginingInv {
-  GlAccount       String? @db.NChar(10)
-  BeginInvQty     Int?
-  BeginInvDollars Float?
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model BOM {
-  ContainerCode String? @db.NChar(10)
-  ImsCode       String? @db.NChar(10)
-  PartType      String? @db.NChar(10)
-  Unit          String? @db.NChar(10)
-  ProductKey    String? @db.NChar(10)
+  ContainerCode String? @db.VarChar(10)
+  ImsCode       String? @db.VarChar(10)
+  PartType      String? @db.VarChar(10)
+  Unit          String? @db.VarChar(10)
+  ProductKey    String  @id @db.VarChar(15)
 
-  @@ignore
+  @@unique([ProductKey, PartType, Unit])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model EndingInv {
-  GlAccount     String? @db.NChar(10)
+  GlAccount     String @id @db.VarChar(10)
   EndInvQty     Int?
   EndInvDollats Float?
-
-  @@ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model ExpenseDetail {
-  ProductKey              String? @db.NChar(10)
-  ExpenseGl               String? @db.NChar(10)
-  ImsCode                 String? @db.NChar(10)
+    id     Int    @id @default(autoincrement()) 
+  ProductKey              String   @db.VarChar(15)
+  ExpenseGl               String? @db.VarChar(10)
+  ImsCode                 String  @db.VarChar(10)
   TotalPartFillsQty       Int?
   SpecificPartUsageQty    Int?
   AllocatedExpenseDollars Float?
   TotalImsUsageDollars    Float?
 
-  @@ignore
+  @@unique([ProductKey, ImsCode])
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model ExpenseMapping {
-  ProductKey String? @db.NChar(10)
-  ExpenseGl  String? @db.NChar(10)
 
-  @@ignore
+model ExpenseMapping {
+  ProductKey String  @id @db.VarChar(15)
+  ExpenseGl  String? @db.VarChar(10)
 }
 
 model ItemModel {
-  ItemCode             String @id @db.NVarChar(10)
+  id                 Int    @id @default(autoincrement())
+  GL                  String @db.NVarChar(10)
+  ItemCode             String @db.NVarChar(10)
   StandardCost         Float
   BeginInvQty          Int
   BeginInvValue        Float
   EndInvQty            Int
   EndInvValue          Float
+  AdjustmentInvQty     Int
+  AdjustmentInvValue   Float
   ReceiptQty           Int
   ReceiptValue         Float
   UsageQty             Int
@@ -89,17 +78,44 @@ model ItemModel {
   Hurdle               Float
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model ItemModelHistory {
+  ClosedMonth          Int
+  ItemCode             String @id @db.VarChar(10)
+  StandardCost         Float?
+  BeginInvQty          Int?
+  BeginInvValue        Float?
+  EndInvQty            Int?
+  EndInvValue          Float?
+  AdjustmentInvQty     Int?
+  AdjustmentInvValue   Float?
+  ReceiptQty           Int?
+  ReceiptValue         Float?
+  UsageQty             Int?
+  UsageValue           Float?
+  ImsReceiptQty        Int?
+  AccuralReversalQty   Int?
+  AccuralReversalValue Float?
+  AccuralQty           Int?
+  AccuralValue         Float?
+  AdjReceiptQty        Int?
+  AdjReceiptValue      Float?
+  AllocatedExpense     Float?
+  UnallocatedExpense   Float?
+  Hurdle               Float?
+
+  @@unique([ItemCode, ClosedMonth])
+}
+
 model Receipts {
-  GlAccount    String? @db.NChar(10)
-  Journal      String? @db.NChar(10)
-  CD           String? @db.NChar(10)
+  GlAccount    String  @id @db.VarChar(10)
+  Journal      String? @db.VarChar(10)
+  CD           String? @db.VarChar(10)
   Amount       Float?
   Date         Int?
   ReceiptValue Float?
-  TGDesc       String? @db.NChar(10)
+  TGDesc       String? @db.VarChar(100)
   QtyClean     Int?
   ReceiptQty   Int?
 
-  @@ignore
+  @@unique([GlAccount, Journal, CD])
 }

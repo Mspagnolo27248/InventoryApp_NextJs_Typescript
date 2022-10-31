@@ -13,7 +13,7 @@ export  const Layout = (props: {
 
     const navs = [
         ['Home',''],
-        ['Run Close','runModel']
+        ['Run Close','CurrentMonthAssetsPage']
     ]
 
  
