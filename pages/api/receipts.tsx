@@ -3,8 +3,7 @@ import { PrismaClient, Receipts } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  data: Receipts[]
-}|{err:string}
+}
 const prisma = new PrismaClient();
 
 export default async function handler(
@@ -13,7 +12,7 @@ export default async function handler(
 ) {
 try{
   const data = await prisma.receipts.findMany();
-  res.status(200).json({data})
+  res.status(200).json(data)
 } catch(err){
    console.log(err);
   res.status(403).json({ err: "Error occured." }); 
