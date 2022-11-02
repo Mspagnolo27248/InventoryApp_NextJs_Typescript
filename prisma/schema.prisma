@@ -10,7 +10,7 @@ datasource db {
 model AssetMapping {
   ItemCode     String  @id @db.VarChar(10)
   GL           String? @db.VarChar(10)
-  GlDesc       String? @db.VarChar(100)
+  Desc       String? @db.VarChar(100)
   GLAccount    String? @db.VarChar(10)
   Part         String? @db.VarChar(10)
   StandardCost Float?
@@ -35,8 +35,8 @@ model EndingInventory {
 
 model BeginInventory {
   GlAccount     String @id @db.VarChar(10)
-  EndInvQty     Int?
-  EndInvDollats Float?
+  BeginInvQty     Int?
+  BeginInvDollars Float?
 }
 
 model ExpenseDetail {
@@ -125,5 +125,43 @@ model Receipts {
   QtyClean     Int?
   ReceiptQty   Int?
 
+
+}
+
+model AccuralReversals {
+  id     Int    @id @default(autoincrement())
+  ImsCode String  @db.VarChar(10)
+  GlAccount String @db.VarChar(10)
+  Qty Int ?
+  Value Float?
+}
+
+model ImsActivity {
+   id     Int    @id @default(autoincrement())
+  IMS_Code String  @db.VarChar(10)
+  BEGBALANCE Int ?
+  TOTALRECEIPTS Int?
+  TOTALISSUES Int?
+  TOTALRETURNS Int?
+  TOTALADJUSTMENTS Int?
+  TOTALPHYSICAL Int?
+  TOTALTRANSFERFROM Int?
+  TOTALTRANSFERTO Int?
+  ENDBALANCE Int?
+}
+
+model Fills{
+     id     Int    @id @default(autoincrement())
+GroupCode String  @db.VarChar(10)
+ContainerProduct String  @db.VarChar(20)
+ContainerDesc String  @db.VarChar(100)
+ProductDesc String  @db.VarChar(100)
+FillBottles Int
+FillCases Int
+FillQty Int
+QtyOrBottle Int
+Key String  @db.VarChar(20)
+Code String  @db.VarChar(10)
+Product String  @db.VarChar(10)
 
 }

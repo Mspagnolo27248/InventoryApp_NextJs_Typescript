@@ -1,3 +1,4 @@
+import { AssetMapping } from "@prisma/client";
 import { IassetMapping } from "../interfaces";
 import { Item } from "./Item";
 
@@ -6,17 +7,17 @@ export class ItemCollection {
   glMaps = new Map<string, string>();
   imsMaps = new Map<string, string>();
 
-  constructor(data: IassetMapping[]) {
+  constructor(data: AssetMapping[]) {
     for (var row of data) {
 
       this.collection.set(
         row.ItemCode,
-        new Item(row.GlAccount, row.ItemCode, parseFloat(row.StandardCost))
+        new Item(row.GLAccount||'999999-99', row.ItemCode, (row.StandardCost!))
       );
 
-      this.glMaps.set(row.GlAccount, row.ItemCode);
+      this.glMaps.set(row.GLAccount||'999999-99', row.ItemCode);
 
-      this.imsMaps.set(row.ItemCode, row.GlAccount);
+      this.imsMaps.set(row.ItemCode, row.GLAccount||'999999-99');
     }
   }
 

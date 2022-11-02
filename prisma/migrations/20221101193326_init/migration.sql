@@ -6,7 +6,7 @@ BEGIN TRAN;
 CREATE TABLE [dbo].[AssetMapping] (
     [ItemCode] VARCHAR(10) NOT NULL,
     [GL] VARCHAR(10),
-    [GlDesc] VARCHAR(100),
+    [Desc] VARCHAR(100),
     [GLAccount] VARCHAR(10),
     [Part] VARCHAR(10),
     [StandardCost] FLOAT(53),
@@ -36,8 +36,8 @@ CREATE TABLE [dbo].[EndingInventory] (
 -- CreateTable
 CREATE TABLE [dbo].[BeginInventory] (
     [GlAccount] VARCHAR(10) NOT NULL,
-    [EndInvQty] INT,
-    [EndInvDollats] FLOAT(53),
+    [BeginInvQty] INT,
+    [BeginInvDollars] FLOAT(53),
     CONSTRAINT [BeginInventory_pkey] PRIMARY KEY CLUSTERED ([GlAccount])
 );
 
@@ -133,6 +133,49 @@ CREATE TABLE [dbo].[Receipts] (
     [QtyClean] INT,
     [ReceiptQty] INT,
     CONSTRAINT [Receipts_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[AccuralReversals] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [ImsCode] VARCHAR(10) NOT NULL,
+    [GlAccount] VARCHAR(10) NOT NULL,
+    [Qty] INT,
+    [Value] FLOAT(53),
+    CONSTRAINT [AccuralReversals_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[ImsActivity] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [IMS_Code] VARCHAR(10) NOT NULL,
+    [BEGBALANCE] INT,
+    [TOTALRECEIPTS] INT,
+    [TOTALISSUES] INT,
+    [TOTALRETURNS] INT,
+    [TOTALADJUSTMENTS] INT,
+    [TOTALPHYSICAL] INT,
+    [TOTALTRANSFERFROM] INT,
+    [TOTALTRANSFERTO] INT,
+    [ENDBALANCE] INT,
+    CONSTRAINT [ImsActivity_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[Fills] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [GroupCode] VARCHAR(10) NOT NULL,
+    [ContainerProduct] VARCHAR(20) NOT NULL,
+    [ContainerDesc] VARCHAR(100) NOT NULL,
+    [ProductDesc] VARCHAR(100) NOT NULL,
+    [FillBottles] INT NOT NULL,
+    [FillCases] INT NOT NULL,
+    [FillQty] INT NOT NULL,
+    [QtyOrBottle] INT NOT NULL,
+    [Key] VARCHAR(20) NOT NULL,
+    [Code] VARCHAR(10) NOT NULL,
+    [Product] VARCHAR(10) NOT NULL,
+    CONSTRAINT [Fills_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
 COMMIT TRAN;

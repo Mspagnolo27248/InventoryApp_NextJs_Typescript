@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
+    "gridjs": "^5.1.0",
+    "gridjs-react": "^5.1.0",
     "next": "13.0.0",
     "prisma": "^4.5.0",
     "react": "18.2.0",

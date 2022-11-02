@@ -1,29 +1,36 @@
-import {
-  AssetMapping,
-  Receipts,
-} from "@prisma/client";
+import { AssetMapping, Receipts } from "@prisma/client";
 import type { NextPage } from "next";
-import {
-  Fragment,
-  useContext,
-} from "react";
+import { Fragment, useContext } from "react";
 import DataContext from "../components/context/data-context";
 import ItemTable from "../components/ItemTable/ItemTable";
 import { Item } from "../containerModel/Models/Item";
+import { Grid } from "gridjs-react";
 
 const CurrentMonthAssetsPage: NextPage = () => {
+
   const appContext = useContext(DataContext);
 
-  const startMonthHandler = async (e: { preventDefault: any }) => {
+  const setCurrentModel = async (e: { preventDefault: any }) => {
+    await fetch(`/api/setCurrentModel`)
+      .then((response) => response.json())
+      .then((data) => {
+        const itemMap = new Map<string, Item>(data);
+        appContext.updateItemMap(itemMap);
+      });
+  };
+
+
+  const getCurrentModel = async (e: { preventDefault: any }) => {
     //fetch asset map
     e.preventDefault;
-    await fetch(`/api/staticRun`)
+    await fetch(`/api/getCurrentModel`)
       .then((response) => response.json())
       .then((data) => {
         appContext.updateItems(data.items);
         appContext.updateExpenses(data.expenses);
       });
   };
+
 
   const updateReceiptsHandler = async (e: { preventDefault: any }) => {
     console.log("ex");
@@ -55,6 +62,7 @@ const CurrentMonthAssetsPage: NextPage = () => {
     appContext.updateItems(updateItems);
   };
 
+
   const initalizeAssetMapHandler = async (e: { preventDefault: any }) => {
     e.preventDefault;
     const assetMapping = await fetch(`/api/assetMapping`)
@@ -68,10 +76,24 @@ const CurrentMonthAssetsPage: NextPage = () => {
     appContext.updateItems(initalItems);
   };
 
+
+  let itemMap = appContext.itemMap;
+  let data: any[] = [];
+  if (itemMap) {
+    data = [...itemMap.values()].map((data) => Object.values(data));
+  }
+
+
+  let columnNames: string[] = [];
+  if (itemMap) {
+    columnNames = Object.keys([...itemMap.entries()][0][1]);
+  }
+
+  
   return (
     <Fragment>
       <div className="actionButtons">
-        <button type="button" onClick={startMonthHandler}>
+        <button type="button" onClick={getCurrentModel}>
           Start Month
         </button>
         <button type="button" onClick={updateReceiptsHandler}>
@@ -81,9 +103,15 @@ const CurrentMonthAssetsPage: NextPage = () => {
         <button type="button" onClick={initalizeAssetMapHandler}>
           Initalize AssetMapp
         </button>
+
+        <button type="button" onClick={setCurrentModel}>
+          Initalize CurrentMonth
+        </button>
       </div>
 
-      <ItemTable itemModel={appContext.items} />
+      {/* <ItemTable itemModel={appContext.items} /> */}
+
+      <Grid data={data} columns={columnNames} search={true} sort={true} />
     </Fragment>
   );
 };
