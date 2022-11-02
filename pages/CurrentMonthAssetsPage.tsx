@@ -80,14 +80,58 @@ const CurrentMonthAssetsPage: NextPage = () => {
   let itemMap = appContext.itemMap;
   let data: any[] = [];
   if (itemMap) {
-    data = [...itemMap.values()].map((data) => Object.values(data));
+    data = [...itemMap.values()].map((data) => 
+    [
+       data['GlAccount'],
+       data['ItemCode'],
+       data['StandardCost'].toFixed(2),
+       data['BeginInvQty'].toFixed(0),
+       data['ReceiptQty'].toFixed(0),
+       data['ImsReceiptQty'].toFixed(0),
+       data['AccuralReversalQty'].toFixed(0),
+       data['AccuralQty'].toFixed(0),
+       data['AdjReceiptQty'].toFixed(0),
+       data['UsageQty'].toFixed(0),
+       data['EndInvQty'].toFixed(0),
+       data['BeginInvValue'].toFixed(2),
+       data['ReceiptValue'].toFixed(2),
+       data['AccuralReversalValue'].toFixed(2),  
+       data['AccuralValue'].toFixed(2),      
+       data['AdjReceiptValue'].toFixed(2),
+ 
+       data['UsageValue'].toFixed(2), 
+       data['EndInvValue'].toFixed(2),
+       data['AllocatedExpense'].toFixed(2),
+       data['UnallocatedExpense'].toFixed(2)
+    ])
+
   }
 
 
-  let columnNames: string[] = [];
-  if (itemMap) {
-    columnNames = Object.keys([...itemMap.entries()][0][1]);
-  }
+  let columnNames: string[] = [
+    "Gl Account",
+    "Item Code",
+    "Standard Cost",
+    "Begin Qty",
+    "Receipt Qty",
+  "IMS Qty",
+  "Accural Rev Qty",
+"Accural Qty",
+"Adj Receipt Qty",
+"Usage Qty",
+"End Qty",
+"Begin Value",
+"Receipt Value",
+"Accural Rev Value",
+"Accrual Value",
+"Adj Receipt Value",
+"Usage Value",
+"End Value",
+"Allocated Expense",
+" Un-Allocated Expense"
+  ]
+  //   columnNames = Object.keys([...itemMap.entries()][0][1]);
+  // }
 
   
   return (
