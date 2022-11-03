@@ -1,3 +1,4 @@
+import { BOM, ExpenseMapping } from "@prisma/client";
 import { IBom } from "../interfaces";
 import { ExpenseDetail } from "./ExpenseItem";
 import { Item } from "./Item";
@@ -10,32 +11,32 @@ export class ExpenseCollection {
   expenseByGlAccount: { [key: string]: number } = {};
   expenseByImsCode: { [key: string]: number } = {};
 
-  constructor(data: { [keys: string]: string }[]) {
+  constructor(data: ExpenseMapping[]) {
     //This initalizes the unique keys of the expenseglMap and assigns them GL's <Product Key, Expense Gl>
     for (let record of data) {
       let key = record.ProductKey.replace(/ /g, "-");
-      this.expenseGlMap.set(key, record.ExpenseGl);
+      this.expenseGlMap.set(key, record.ExpenseGl!);
     }
   }
 
-  loadFillData(fills: { [keys: string]: string }[]) {
+  loadFillData(fills: { [keys: string]: string|number }[]) {
     for (let record of fills) {
     //Initalize and Sums the product Fills Data  <Product Key, Fill Qty>
       let key = (record.ContainerProduct + "-" + record.GroupCode).replace( / /g,"-");
 
       if (Object.keys(this.productFills).includes(key))
-        this.productFills[key] += parseInt(record.QtyOrBottle);
+        this.productFills[key] += +record.QtyOrBottle;
       else {
-        this.productFills[key] = parseInt(record.QtyOrBottle);
+        this.productFills[key] = +record.QtyOrBottle;
       }
     }
   }
 
-  firstPass(bom: IBom[]) {
+  firstPass(bom: BOM[]) {
     //Update Expense Detail Map (Pass 1 Initalize Data)
     for (let record of bom) {
       let produtKey = record.ProductKey.replace(/ /g, "-");  //Product Key
-      let key = produtKey + "-" + record.IMSCode; //Product Key Plus IMS Code
+      let key = produtKey + "-" + record.ImsCode; //Product Key Plus IMS Code
       let partsFilled = this.productFills[produtKey] || 0;
       let expenseGl = this.expenseGlMap.get(produtKey)!;
 
@@ -43,7 +44,7 @@ export class ExpenseCollection {
       this.expenseCollection.set(key, new ExpenseDetail(
           produtKey, //Key
           expenseGl, //Gl
-          record.IMSCode, //ItemCode
+          record.ImsCode!, //ItemCode
           0, //Total Fills for Part
           partsFilled, //Specific Fills
           0, //Allocated Expense to GL
@@ -53,10 +54,10 @@ export class ExpenseCollection {
 
       //update the PartTotalFills data structure
       //Keep Track of Total Fills by IMS Part
-      if (Object.keys(this.imsTotalFills).includes(record.IMSCode)) {
-        this.imsTotalFills[record.IMSCode] += partsFilled;
+      if (Object.keys(this.imsTotalFills).includes(record.ImsCode!)) {
+        this.imsTotalFills[record.ImsCode!] += partsFilled;
       } else {
-        this.imsTotalFills[record.IMSCode] = partsFilled;
+        this.imsTotalFills[record.ImsCode!] = partsFilled;
       }
     }
   }

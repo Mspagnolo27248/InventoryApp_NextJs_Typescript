@@ -3,15 +3,15 @@ export const menuItems = [
 
 {
     name:"Current Month",
-    url:"/currentMonth",
+    url:"/CurrentMonthAssetsPage",
     subMenu:[
         {
             name:'Expense',
-            url:"#"
+            url:"CurrentMonthExpensePage"
         },
         {
             name:'Assets',
-            url:"#"
+            url:"CurrentMonthAssetsPage"
         }
     ]
 },

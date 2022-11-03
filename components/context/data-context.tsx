@@ -5,10 +5,17 @@ import { ExpenseDetail } from "../../containerModel/Models/ExpenseItem";
 interface IDataContext {
     items: Item[];
     updateItems: (items: Item[]) => void;
+
     expenses: ExpenseDetail[]
     updateExpenses: (expenses: ExpenseDetail[]) => void;
+
     itemMap:Map<string,Item>|undefined;
     updateItemMap:(itemModel:Map<string,Item>)=>void;
+
+    expenseMap:Map<string,ExpenseDetail>|undefined;
+    updateExpenseMap:(itemModel:Map<string,ExpenseDetail>)=>void;
+
+
   }
   
 
@@ -18,7 +25,9 @@ const DataContext = createContext<IDataContext>({
     expenses:[],
     updateExpenses:(expenses:ExpenseDetail[])=>{},
     itemMap:undefined,
-    updateItemMap:(itemModel:Map<string,Item>)=>{}
+    updateItemMap:(itemModel:Map<string,Item>)=>{},
+    expenseMap:undefined,
+    updateExpenseMap:(itemModel:Map<string,ExpenseDetail>)=>{}
 
     })
 
@@ -39,13 +48,19 @@ export function DataContextProvider(props: any) {
     setItemModel(itemModel)
   }
 
+  const [expenseModel,setExpenseModel] = useState<Map<string,ExpenseDetail>|undefined>(undefined);
+  function updateExpenseModelHandler(expenseModel:Map<string,ExpenseDetail>){
+    setExpenseModel(expenseModel)
+  }
     const context: IDataContext = {
       items: items!,
       updateItems: updateItemsHandler,  
       expenses: expenses!,
       updateExpenses:updateExpenseHandler,
       itemMap:itemModel,
-      updateItemMap:updateItemModelHandler
+      updateItemMap:updateItemModelHandler,
+      expenseMap:expenseModel,
+      updateExpenseMap:updateExpenseModelHandler
     };
   
     return (

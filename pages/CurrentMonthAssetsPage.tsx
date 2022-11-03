@@ -5,6 +5,7 @@ import DataContext from "../components/context/data-context";
 import ItemTable from "../components/ItemTable/ItemTable";
 import { Item } from "../containerModel/Models/Item";
 import { Grid } from "gridjs-react";
+import { ExpenseDetail } from "../containerModel/Models/ExpenseItem";
 
 const CurrentMonthAssetsPage: NextPage = () => {
 
@@ -13,9 +14,11 @@ const CurrentMonthAssetsPage: NextPage = () => {
   const setCurrentModel = async (e: { preventDefault: any }) => {
     await fetch(`/api/setCurrentModel`)
       .then((response) => response.json())
-      .then((data) => {
-        const itemMap = new Map<string, Item>(data);
+      .then((data) => {        
+        const itemMap = new Map<string, Item>(data.itemModel);
+        const expenseMap = new Map<string,ExpenseDetail>(data.expenseModel)
         appContext.updateItemMap(itemMap);
+        appContext.updateExpenseMap(expenseMap);
       });
   };
 
