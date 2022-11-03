@@ -1,5 +1,4 @@
 import { AssetMapping } from "@prisma/client";
-import { IassetMapping } from "../interfaces";
 import { Item } from "./Item";
 
 export class ItemCollection {

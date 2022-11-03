@@ -7,7 +7,6 @@ import {
   PrismaClient,
 } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { IassetMapping, IBom } from "../../containerModel/interfaces";
 import { ExpenseCollection } from "../../containerModel/Models/ExpenseCollection";
 import { ItemCollection } from "../../containerModel/Models/ItemCollection";
 import { AggregateToUniqueDictionary } from "../../containerModel/utils/Utils";
