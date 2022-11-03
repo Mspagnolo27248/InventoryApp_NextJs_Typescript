@@ -29,8 +29,10 @@ const CurrentMonthAssetsPage: NextPage = () => {
     await fetch(`/api/getCurrentModel`)
       .then((response) => response.json())
       .then((data) => {
-        appContext.updateItems(data.items);
-        appContext.updateExpenses(data.expenses);
+        const itemMap = new Map<string, Item>(data.itemModel);
+        const expenseMap = new Map<string,ExpenseDetail>(data.expenseDetail)
+        appContext.updateItemMap(itemMap);
+        appContext.updateExpenseMap(expenseMap);
       });
   };
 
@@ -141,7 +143,7 @@ const CurrentMonthAssetsPage: NextPage = () => {
     <Fragment>
       <div className="actionButtons">
         <button type="button" onClick={getCurrentModel}>
-          Start Month
+          Get Current Model
         </button>
         <button type="button" onClick={updateReceiptsHandler}>
           Re-Initalize Receipts
@@ -152,7 +154,7 @@ const CurrentMonthAssetsPage: NextPage = () => {
         </button>
 
         <button type="button" onClick={setCurrentModel}>
-          Initalize CurrentMonth
+          Run Model Current Month
         </button>
       </div>
 

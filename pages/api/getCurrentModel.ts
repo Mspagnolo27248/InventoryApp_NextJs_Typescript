@@ -17,11 +17,45 @@ const prisma = new PrismaClient()
 //Query Current Month Models and Add to Context
 
 
- const items = await   prisma.itemModel.findMany();
- const expenses = await prisma.expenseDetail.findMany();
-
+ const itemModel = await   prisma.itemModel.findMany();
+ const expenseDetail = await prisma.expenseDetail.findMany();
+const itemMap = itemModel.map((data)=>{
+  return  [data.ItemCode, 
+    new Item(
+      data.GL,
+      data.ItemCode,    
+      data.StandardCost,
+      data.BeginInvQty,
+      data.BeginInvValue,
+      data.EndInvQty,
+      data.EndInvValue,
+      data.ReceiptQty,
+      data.ReceiptValue,
+      data.UsageQty,
+      data.UsageValue,
+      data.ImsReceiptQty,
+      data.AccuralReversalQty,
+      data.AccuralReversalValue,
+      data.AccuralQty,
+      data.AccuralValue,
+      data.AdjReceiptQty,
+      data.AdjReceiptValue,
+      data.AllocatedExpense,
+      data.UnallocatedExpense,
+      data.Hurdle)]
+})
+const expenseMap = expenseDetail.map((data)=>{
+return   [data.ProductKey,new ExpenseDetail(
+  data.ProductKey,
+  data.ExpenseGl||'999999-99',
+  data.ImsCode,
+  data.TotalPartFillsQty||0,
+  data.SpecificPartUsageQty||0,
+  data.AllocatedExpenseDollars||0,
+  data.TotalImsUsageDollars||0 )]
+})
  res.status(200).send({
-  items: items,
-  expenses:expenses})
+  itemModel: itemMap,
+  expenseDetail:expenseMap})
 
 }
