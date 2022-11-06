@@ -1,11 +1,8 @@
-import { AssetMapping, Receipts } from "@prisma/client";
+
 import type { NextPage } from "next";
 import { Fragment, useContext } from "react";
 import DataContext from "../components/context/data-context";
-import ItemTable from "../components/ItemTable/ItemTable";
-import { Item } from "../containerModel/Models/Item";
 import { Grid } from "gridjs-react";
-import { ExpenseDetail } from "../containerModel/Models/ExpenseItem";
 
 const CurrentMonthExpensePage: NextPage = () => {
 

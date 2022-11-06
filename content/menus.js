@@ -6,13 +6,26 @@ export const menuItems = [
     url:"/CurrentMonthAssetsPage",
     subMenu:[
         {
+            name:'Assets',
+            url:"CurrentMonthAssetsPage"
+        },
+        {
             name:'Expense',
             url:"CurrentMonthExpensePage"
         },
         {
-            name:'Assets',
-            url:"CurrentMonthAssetsPage"
+            name:'Receipts',
+            url:"ReceiptsPage"
+        },
+        {
+            name:'Fills',
+            url:"FillsPage"
+        },
+        {
+            name:'Expense Mapping',
+            url:"ExpenseMappingPage"
         }
+      
     ]
 },
 {

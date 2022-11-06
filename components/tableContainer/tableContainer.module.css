@@ -1,0 +1,10 @@
+
+
+.tableContainer{
+
+    height: 800px;
+    max-height: 1000px;
+    overflow-y: scroll;  
+
+}
+
