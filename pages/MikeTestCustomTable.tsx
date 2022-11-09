@@ -74,11 +74,16 @@ const [editFormData,setEditFormData] = useState<{[key:string]:number|string}>({
     QtyOrBottle:0
 });
 
-const handleEditFormSubmit = (event: { preventDefault: () => void; })=>{
+const handleEditFormSubmit = async (event: { preventDefault: () => void; })=>{
     event.preventDefault();
     const updatedData = [...data];    
     updatedData[editId||0] = editFormData;
     setData(updatedData);
+
+    const output = await fetch('/api/fills',{
+      method: 'POST',
+      body: JSON.stringify(editFormData) 
+     }) 
     setEditId(null)
 
 }
