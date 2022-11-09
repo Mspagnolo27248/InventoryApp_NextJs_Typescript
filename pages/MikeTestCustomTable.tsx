@@ -74,10 +74,14 @@ const [editFormData,setEditFormData] = useState<{[key:string]:number|string}>({
     QtyOrBottle:0
 });
 
-// const handleEditFormSubmit = (record)=>{
-//     const newFormData
+const handleEditFormSubmit = (event: { preventDefault: () => void; })=>{
+    event.preventDefault();
+    const updatedData = [...data];    
+    updatedData[editId||0] = editFormData;
+    setData(updatedData);
+    setEditId(null)
 
-// }
+}
 
 
   return (
@@ -98,7 +102,14 @@ const [editFormData,setEditFormData] = useState<{[key:string]:number|string}>({
                 <Fragment key={idx} >
                   
                   {editId === idx ? (
-                    <EditableRow item={editFormData} names={columnNames} idx={+idx}  handleEditClick={handleEditClick} handleEditFormChange={handleEditFormChange}></EditableRow>
+                    <EditableRow 
+                    item={editFormData} 
+                    names={columnNames} 
+                    idx={+idx}  
+                    handleEditClick={handleEditClick} 
+                    handleEditFormChange={handleEditFormChange}
+                    handleEditFormSubmit={handleEditFormSubmit}
+                    />
                   ) : (
                     <ReadOnlyRow item={row} idx={+idx} handleEditClick={handleEditClick} ></ReadOnlyRow>
                   )}

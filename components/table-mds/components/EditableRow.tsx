@@ -7,6 +7,7 @@ export const EditableRow = (props: {
   idx:number;
   handleEditClick: (event: { preventDefault: () => void; },item: any ,idx: number| null) => void;
   handleEditFormChange: (event: any)=>void;
+  handleEditFormSubmit:(event:any)=>void;
 }) => {
   const item: {[key:string]:number|string}= props.item;
   const names: string[] = props.names;
@@ -32,7 +33,7 @@ export const EditableRow = (props: {
       })}
       <td>
       <button type="button" onClick={(event)=>props.handleEditClick(event,item,null)}>Cancel</button>
-      {/* <button type="button" onClick={(event)=>props.}>Save</button> */}
+      <button type="submit" onClick={(event)=>props.handleEditFormSubmit(event)}>Save</button>
       </td>
     </tr>
   )
