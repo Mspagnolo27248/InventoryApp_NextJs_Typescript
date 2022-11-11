@@ -1,13 +1,49 @@
 import { Fills, PrismaClient } from "@prisma/client";
 import { strict } from "assert";
 import type { NextPage } from "next";
-import { Fragment, Key, SetStateAction, useState } from "react";
+import { Fragment, Key, MouseEvent, SetStateAction, useState } from "react";
 import { EditableRow } from "../components/table-mds/components/EditableRow";
 import { ReadOnlyRow } from "../components/table-mds/components/ReadOnlyRow";
 import classes from '../components/table-mds/components/Rows.module.css'
 
 const MikeTestCustomPage: NextPage = (props: { [key: string]: any }) => {
+const [sortOrder,setSortOrder] = useState<{[key:string]:number} >({
+  id:0,
+  Code:0,
+  ContainerProduct:0,
+  ContainerDesc:0,
+  GroupCode:0,
+  Key:0,
+  Product:0,
+  ProductDesc:0,
+  FillBottles:0,
+  FillCases:0,
+  FillQty:0,
+  QtyOrBottle:0
 
+})
+  const handleSortClick = (event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    const currentData = [...data];
+    const e = event.target as HTMLElement
+    const sortField =e.innerText;
+
+    if(sortOrder[sortField]===0){
+      currentData.sort((a,b) => (a[sortField] > b[sortField]) ? 1 : ((b[sortField] > a[sortField]) ? -1 : 0))
+      const newSortOrder:{[key:string]:number} = {...sortOrder}
+      newSortOrder[sortField] = 1;
+      setSortOrder(newSortOrder)
+      setData(currentData)
+
+    }
+    else{
+      currentData.sort((a,b) => (a[sortField] < b[sortField]) ? 1 : ((b[sortField] < a[sortField]) ? -1 : 0))
+      const newSortOrder:{[key:string]:number} = {...sortOrder}
+      newSortOrder[sortField] = 0;
+      setSortOrder(newSortOrder)
+      setData(currentData)
+    }
+ 
+  }
 const handleEditClick = (event: { preventDefault: () => void; },item: any ,idx: number| null)=>{
     event.preventDefault();
     setEditId(idx)  
@@ -97,7 +133,7 @@ const handleEditFormSubmit = async (event: { preventDefault: () => void; })=>{
           <thead>
             <tr key={999999} >
               {columnNames.map((item, idx) => {
-                return <th key={idx}>{item}</th>;
+                return <th key={idx}><button type="button" name={item} onClick={(event)=>handleSortClick(event)}>{item}</button></th>;
               })}
             </tr>
           </thead>
