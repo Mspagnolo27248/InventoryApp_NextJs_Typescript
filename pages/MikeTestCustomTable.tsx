@@ -1,7 +1,7 @@
 import { Fills, PrismaClient } from "@prisma/client";
 import { strict } from "assert";
 import type { NextPage } from "next";
-import { Fragment, Key, MouseEvent, SetStateAction, useState } from "react";
+import { Fragment, Key, MouseEvent, SetStateAction, useEffect, useState } from "react";
 import { EditableRow } from "../components/table-mds/components/EditableRow";
 import { ReadOnlyRow } from "../components/table-mds/components/ReadOnlyRow";
 import classes from "../components/table-mds/components/Rows.module.css";
@@ -108,7 +108,7 @@ const MikeTestCustomPage: NextPage = (props: { [key: string]: any }) => {
     idx: number | null
   ) => {
     event.preventDefault();
-    setEditId(idx);
+    setEditId(item.id);
     setEditFormData(item);
   };
 
@@ -130,15 +130,8 @@ const MikeTestCustomPage: NextPage = (props: { [key: string]: any }) => {
   const handleSearchBoxFilter = (event: { preventDefault: () => void; target: { value: any; }; })=>{
     event.preventDefault();
     const searchValue = event.target.value;
-    // setSearchField(searchValue);
-    const currentData = [...data]
-    
-    const newFilteredData = currentData.filter((record)=> 
-    {
-      const values:string[] = Object.values(record)
-      const foundValues = values.filter((field)=>field.toString().includes(searchValue))
-     return foundValues.length>0})
-    setFilteredData(newFilteredData)
+    setSearchField(searchValue);
+
 
   }
 
@@ -150,16 +143,35 @@ const MikeTestCustomPage: NextPage = (props: { [key: string]: any }) => {
     preventDefault: () => void;
   }) => {
     event.preventDefault();
-    const updatedData = [...data];
-    updatedData[editId || 0] = editFormData;
+    const currentData = [...data];
+    const updatedData = currentData.map((item,idx)=>{
+      if(item.id===editId){
+       return  Object.assign(item,editFormData)
+      }
+      else{
+        return item
+      }
+    });
     setData(updatedData);
-    setFilteredData(updatedData)
+
     const output = await fetch("/api/fills", {
       method: "POST",
       body: JSON.stringify(editFormData),
     });
     setEditId(null);
   };
+
+
+  useEffect(()=>{
+    const currentData = [...data]
+    
+    const newFilteredData = currentData.filter((record)=> 
+    {
+      const values:string[] = Object.values(record)
+      const foundValues = values.filter((field)=>field.toString().includes(searchField))
+     return foundValues.length>0})
+    setFilteredData(newFilteredData)
+  },[data,searchField])
 
   return (
     <Fragment>
@@ -195,7 +207,7 @@ const MikeTestCustomPage: NextPage = (props: { [key: string]: any }) => {
             {filteredData.map((row: { [key: string]: number | string }, idx: Key) => {
               return (
                 <Fragment key={idx}>
-                  {editId === idx ? (
+                  {row.id===editId? (
                     <EditableRow
                       item={editFormData}
                       names={columnNames}
