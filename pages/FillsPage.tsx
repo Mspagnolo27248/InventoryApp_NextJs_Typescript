@@ -46,6 +46,23 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     "QtyOrBottle",
   ];
 
+  
+  const prettyNames = [
+    "ID",
+    "Container",
+    "Prod Cont",
+    "Desc",
+    "Unit",
+    "Key",
+    "Product",
+    "Product Desc",
+    "Fill Bottles",
+    "Fill Cases",
+    "Fill Qty",
+    "Qty Or Bottle",
+  ];
+
+
   //State Varibles
   const [data, setData] = useState(fillsArray);
   const [filteredData, setFilteredData] = useState(data);
@@ -174,6 +191,22 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     setFilteredData(newFilteredData);
   }, [data, searchField]);
 
+  const dynamicStyle = Object.values(fillsArray[0]).map((item,idx)=>{
+    const valueWidth:number = item?.toString().length||1;
+    return  (
+      { border: "none",
+      backgroundColor: "inherit",
+      cursor: "pointer",
+      fontWeight: "bolder",
+      width:`${valueWidth*6}px`,
+      minWidth:"70px"
+   }
+
+    )  
+  })
+
+
+
   return (
     <Fragment>
       <div>Current Month Receipts</div>
@@ -190,14 +223,16 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
           <thead>
             <tr key={999999}>
               {columnNames.map((item, idx) => {
+         
                 return (
                   <th key={idx}>
                     <button
                       type="button"
                       name={item}
                       onClick={(event) => handleSortClick(event)}
+                     style={dynamicStyle[idx]}
                     >
-                      {item}
+                      {prettyNames[idx]}
                     </button>
                   </th>
                 );
@@ -247,3 +282,5 @@ export async function getServerSideProps() {
     },
   };
 }
+
+
