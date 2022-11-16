@@ -1,7 +1,5 @@
-
-
 import type { NextPage } from "next";
-import { PrismaClient, Receipts } from '@prisma/client';
+import { PrismaClient, Receipts } from "@prisma/client";
 import {
   Fragment,
   Key,
@@ -10,10 +8,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import { EditableRow } from "../components/table-mds/components/EditableRow";
+import { ReadOnlyRow } from "../components/table-mds/components/ReadOnlyRow";
 
-const ReceiptsPages:NextPage = (props:{[key:string]:any}) => {
-const receipts:Receipts[] = props.receipts;
-const columnHeaders = [
+const ReceiptsPages: NextPage = (props: { [key: string]: any }) => {
+  const receipts: Receipts[] = props.receipts;
+  const prettyNames = [
     "ID",
     "Gl Account",
     "Journal",
@@ -23,52 +23,57 @@ const columnHeaders = [
     "Value",
     "Description",
     "Clean Qty",
-    "Receipt Qty"]
+    "Receipt Qty",
+  ];
 
-const [data, setData] = useState<Receipts[]>(receipts);
-const [filteredData, setFilteredData] = useState(data);
-const [editId, setEditId] = useState<null | number>(null);
-const [searchField, setSearchField] = useState("");
-const [sortOrder, setSortOrder] = useState<{ [key: string]: number }>({
-id :0,  
-GlAccount :0,   
-Journal : 0, 
-CD :0,
-Amount:0,     
-Date :0,       
-ReceiptValue : 0,
-TGDesc  :0,
-QtyClean :0,  
-ReceiptQty : 0 });
-
-const [editFormData, setEditFormData] = useState<{
-    [key: string]: number | string;
-  }>({
-id :0,  
-GlAccount :"",   
-Journal : "", 
-CD :"",
-Amount:0,     
-Date :0,       
-ReceiptValue : 0,
-TGDesc  :"",
-QtyClean :0,  
-ReceiptQty : 0 
+  //State Varibles
+  const [data, setData] = useState<Receipts[]>(receipts);
+  const [filteredData, setFilteredData] = useState(data);
+  const [editId, setEditId] = useState<null | number>(null);
+  const [searchField, setSearchField] = useState("");
+  const [sortOrder, setSortOrder] = useState<{ [key: string]: number }>({
+    id: 0,
+    GlAccount: 0,
+    Journal: 0,
+    CD: 0,
+    Amount: 0,
+    Date: 0,
+    ReceiptValue: 0,
+    TGDesc: 0,
+    QtyClean: 0,
+    ReceiptQty: 0,
   });
 
+  const [editFormData, setEditFormData] = useState<{
+    [key: string]: number | string;
+  }>({
+    id: 0,
+    GlAccount: "",
+    Journal: "",
+    CD: "",
+    Amount: 0,
+    Date: 0,
+    ReceiptValue: 0,
+    TGDesc: "",
+    QtyClean: 0,
+    ReceiptQty: 0,
+  });
 
-//Action Handlers
-const handleSortClick = (
-    event: { target: HTMLElement; }
+  //Action Handlers
+  const handleSortClick = (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     const currentData = [...filteredData];
-    const e = event.target as HTMLElement;
-    const sortField = e.innerText;
+    const e = event.target as HTMLButtonElement;
+    const sortField = e.name;
 
     if (sortOrder[sortField] === 0) {
       currentData.sort((a, b) =>
-        a[sortField as keyof Receipts]! > b[sortField as keyof Receipts]! ? 1 :
-         b[sortField as keyof Receipts]! > a[sortField as keyof Receipts]! ? -1 : 0
+        a[sortField as keyof Receipts]! > b[sortField as keyof Receipts]!
+          ? 1
+          : b[sortField as keyof Receipts]! > a[sortField as keyof Receipts]!
+          ? -1
+          : 0
       );
       const newSortOrder: { [key: string]: number } = { ...sortOrder };
       newSortOrder[sortField] = 1;
@@ -76,8 +81,11 @@ const handleSortClick = (
       setData(currentData);
     } else {
       currentData.sort((a, b) =>
-        a[sortField as keyof Receipts]! < b[sortField as keyof Receipts]! ? 1 : 
-        b[sortField as keyof Receipts]! < a[sortField as keyof Receipts]! ? -1 : 0
+        a[sortField as keyof Receipts]! < b[sortField as keyof Receipts]!
+          ? 1
+          : b[sortField as keyof Receipts]! < a[sortField as keyof Receipts]!
+          ? -1
+          : 0
       );
       const newSortOrder: { [key: string]: number } = { ...sortOrder };
       newSortOrder[sortField] = 0;
@@ -92,7 +100,13 @@ const handleSortClick = (
     idx: number | null
   ) => {
     event.preventDefault();
-    setEditId(item.id);
+    if(idx===null){
+      setEditId(null);
+    }
+    else{
+      setEditId(item.id);
+    }
+   
     setEditFormData(item);
   };
 
@@ -131,7 +145,7 @@ const handleSortClick = (
     });
     setData(updatedData);
 
-    const output = await fetch("/api/fills", {
+    const output = await fetch("/api/receipts", {
       method: "POST",
       body: JSON.stringify(editFormData),
     });
@@ -141,7 +155,7 @@ const handleSortClick = (
   useEffect(() => {
     const currentData = [...data];
     const newFilteredData = currentData.filter((record) => {
-      const values: (string|number|null)[] = Object.values(record);
+      const values: (string | number | null)[] = Object.values(record);
       const foundValues = values.filter((field) =>
         field?.toString().includes(searchField)
       );
@@ -150,46 +164,87 @@ const handleSortClick = (
     setFilteredData(newFilteredData);
   }, [data, searchField]);
 
-  const dynamicStyle = Object.values(receipts[0]).map((item,idx)=>{
-    const valueWidth:number = item?.toString().length||1;
-    return  (
-      { border: "none",
+  const dynamicStyle = Object.values(receipts[0]).map((item, idx) => {
+    const valueWidth: number = item?.toString().length || 1;
+    return {
+      border: "none",
       backgroundColor: "inherit",
       cursor: "pointer",
       fontWeight: "bolder",
-      width:`${valueWidth*6}px`,
-      minWidth:"70px"
-   }
-
-    )  
-  })
+      width: `${valueWidth * 6}px`,
+      minWidth: "70px",
+    };
+  });
 
   return (
     <Fragment>
-            <div>:NextPage</div>
-   {receipts.map((item)=>{
-        return <p>{Object.values(item)}</p>
-    })}
-
+      <div>Accounts Payable Receipts</div>
+      <div>
+        <input
+          type="text"
+          name="tableSearch"
+          onChange={handleSearchBoxFilter}
+        ></input>
+      </div>
+      <form>
+        <table>
+          <thead>
+            <tr>
+              {Object.keys(receipts[0]).map((item, idx) => {
+                return (
+                  <th key={idx}>
+                    <button
+                      type="button"
+                      name={item}
+                      onClick={(event) => handleSortClick(event)}
+                      style={dynamicStyle[idx]}
+                    >
+                      {prettyNames[idx]}
+                    </button>
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.map((row, idx: Key) => {
+              return (
+                <Fragment key={idx}>
+                  {row.id === editId ? (
+                    <EditableRow
+                      item={editFormData}
+                      names={Object.keys(editFormData)}
+                      idx={+idx}
+                      handleEditClick={handleEditClick}
+                      handleEditFormChange={handleEditFormChange}
+                      handleEditFormSubmit={handleEditFormSubmit}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      item={row as { [key: string]: string | number }}
+                      idx={+idx}
+                      handleEditClick={handleEditClick}
+                    ></ReadOnlyRow>
+                  )}
+                </Fragment>
+              );
+            })}
+          </tbody>
+        </table>
+      </form>
     </Fragment>
-
-  )
-}
+  );
+};
 
 export default ReceiptsPages;
 
-export async function getServerSideProps(){
+export async function getServerSideProps() {
+  const prisma = new PrismaClient();
+  const receipts = await prisma.receipts.findMany();
 
-    const prisma = new PrismaClient();
-    const receipts = await prisma.receipts.findMany();
-
-    return {
-        props:{
-            receipts:receipts
-        }
-    }
-
+  return {
+    props: {
+      receipts: receipts,
+    },
+  };
 }
-
-
-

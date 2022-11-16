@@ -133,7 +133,12 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     idx: number | null
   ) => {
     event.preventDefault();
-    setEditId(item.id);
+    if(idx===null){
+      setEditId(null);
+    }
+    else{
+      setEditId(item.id);
+    }
     setEditFormData(item);
   };
 
