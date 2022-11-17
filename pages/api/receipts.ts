@@ -19,16 +19,16 @@ if(req.method==='POST'){
   const output= await prisma.receipts.update({
     where:{id:body.id},
     data:{
-      id :body.id,  
+     
       GlAccount :body.GlAccount,   
       Journal : body.Journal, 
       CD :body.CD,
-      Amount:body.Amount,     
-      Date :body.Date,       
-      ReceiptValue : body.ReceiptValue,
+      Amount:+body.Amount,     
+      Date :+body.Date,       
+      ReceiptValue : +body.ReceiptValue,
       TGDesc  :body.TGDesc,
-      QtyClean :body.QtyClean,  
-      ReceiptQty : body.ReceiptQty 
+      QtyClean :+body.QtyClean,  
+      ReceiptQty : +body.ReceiptQty 
     },
   });
   res.status(200).json(output)

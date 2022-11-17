@@ -105,8 +105,8 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     const currentData = [...filteredData];
-    const e = event.target as HTMLElement;
-    const sortField = e.innerText;
+    const e = event.target as HTMLInputElement;
+    const sortField = e.name;
 
     if (sortOrder[sortField] === 0) {
       currentData.sort((a, b) =>

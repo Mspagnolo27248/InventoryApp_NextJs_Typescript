@@ -10,6 +10,7 @@ import {
 } from "react";
 import { EditableRow } from "../components/table-mds/components/EditableRow";
 import { ReadOnlyRow } from "../components/table-mds/components/ReadOnlyRow";
+import classes from "../components/table-mds/components/Rows.module.css";
 
 const ReceiptsPages: NextPage = (props: { [key: string]: any }) => {
   const receipts: Receipts[] = props.receipts;
@@ -186,8 +187,11 @@ const ReceiptsPages: NextPage = (props: { [key: string]: any }) => {
           onChange={handleSearchBoxFilter}
         ></input>
       </div>
+      <div className={classes.verticalScroll}>
+
+     
       <form>
-        <table>
+      <table className={classes.tableGrid}>
           <thead>
             <tr>
               {Object.keys(receipts[0]).map((item, idx) => {
@@ -232,6 +236,7 @@ const ReceiptsPages: NextPage = (props: { [key: string]: any }) => {
           </tbody>
         </table>
       </form>
+      </div>
     </Fragment>
   );
 };

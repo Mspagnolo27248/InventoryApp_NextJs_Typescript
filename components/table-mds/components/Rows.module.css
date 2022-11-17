@@ -1,8 +1,14 @@
 
 
 .tableGrid input{
-    width: 0px;
+    width: 100%;
     min-width:50px!important;
 
 
 }
+
+.verticalScroll{
+    height: 800px;
+    max-height: 1000px;
+    overflow-y: scroll;
+  }

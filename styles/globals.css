@@ -28,3 +28,14 @@ padding: 0px,6px;
     background: black;
   }
 }
+
+/* table {
+  text-align: left;
+  position: relative;
+} */
+
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
