@@ -30,10 +30,12 @@ export default async function handler(
 ) {
         
 const prisma = new PrismaClient()
-    const rawSQL = `sync_AssetMapping`;
+    const tableFromQString = req.query.table;
+    const rawSQL = `sync_${tableFromQString}`;
+
     const result = await prisma.$executeRaw`${rawSQL}`;
 
-const data = await prisma.assetMapping.findMany()
-console.log(data)
+// const data = await prisma.assetMapping.findMany()
+// console.log(data)
   res.status(200).json({ name: 'John Doe' })
 }

@@ -1,0 +1,50 @@
+
+
+.container{
+    margin:auto;
+
+    padding: 1em;
+    margin: auto;
+   
+}
+.featureList{
+    padding: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.featureItem{
+    display: inline-block;
+
+}
+
+
+.itemCard{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin: .5em;
+    height: 15em;
+    width:  15em;
+    border-radius: 50%;
+}
+.featureItem button{
+    background-color: inherit;
+    border: none;
+}
+.itemCardHeading{
+    margin: 2.5em .5em 1.0em .5em;
+}
+
+
+.itemCardText{
+    margin: .5em 1em;
+}
+
+.itemCard:hover,
+.itemCard:active
+{
+background-color:darkcyan;
+color: black;
+}

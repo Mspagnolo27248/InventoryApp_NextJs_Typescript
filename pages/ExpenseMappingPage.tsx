@@ -116,7 +116,7 @@ export const ExpenseMappingPage:NextPage = (props: { [key: string]: ExpenseMappi
     });
     setData(updatedData);
 
-    const output = await fetch("/api/r", {
+    const output = await fetch("/api/expenseMapping", {
       method: "POST",
       body: JSON.stringify(editFormData),
     });
