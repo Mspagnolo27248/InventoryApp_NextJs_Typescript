@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import { UrlObject } from "url";
-import classes from "./BlockContainer.module.css";
+import classes from "./BlockContainerLinks.module.css";
 
-export const BlockContainer = (props: {
+export const BlockContainerLinks = (props: {
   items: { url: string; heading: string; desc: string }[];
 }) => {
   const items = props.items;

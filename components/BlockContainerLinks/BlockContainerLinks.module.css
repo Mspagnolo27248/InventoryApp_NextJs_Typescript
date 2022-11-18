@@ -2,15 +2,14 @@
 
 .container{
     margin:auto;
-    background-color: green;
     padding: 1em;
-    margin: auto;
    
 }
 .featureList{
     padding: 0;
-    margin: auto;
+
     text-align: center;
+    vertical-align:top;
 }
 
 .featureItem{
@@ -42,6 +41,6 @@
 .itemCard:hover,
 .itemCard:active
 {
-background-color: wheat;
+background-color: darkcyan;
 color: black;
 }

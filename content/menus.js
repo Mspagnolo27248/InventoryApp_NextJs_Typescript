@@ -9,8 +9,8 @@ export const menuItems = [
             url:"ExpenseMappingPage"
         },
         {
-            name:'Expense',
-            url:"CurrentMonthExpensePage"
+            name:'Asset Mapping',
+            url:"AssetMappingPage"
         }
      
 
