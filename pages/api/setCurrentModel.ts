@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
   BOM,
+  ExpenseDetail,
   ExpenseMapping,
   Fills,
+  ItemModel,
   Prisma,
   PrismaClient,
 } from "@prisma/client";
+import { writeFileSync } from "fs";
+import path  from "path";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ExpenseCollection } from "../../containerModel/Models/ExpenseCollection";
+import { Item } from "../../containerModel/Models/Item";
 import { ItemCollection } from "../../containerModel/Models/ItemCollection";
 import { AggregateToUniqueDictionary } from "../../containerModel/utils/Utils";
 
@@ -20,9 +25,12 @@ export default async function handler(
   const prisma = new PrismaClient();
 
   //ETL truncate and load tables from sources.
-  const rawSQL = `Run_All_Syncs`;
-  const result = await prisma.$executeRaw`${rawSQL}`;
+  // const rawSQL = `Run_All_Syncs`;
+  // const result = await prisma.$executeRaw`${rawSQL}`;
 
+
+  //Guard 
+  
   //Read In Data
   const assetMapping = await prisma.assetMapping.findMany();
   const receipts = await prisma.receipts.findMany();
@@ -31,6 +39,12 @@ export default async function handler(
   const imsActivity = await prisma.imsActivity.findMany();
   const accuralReversals = await prisma.accuralReversals.findMany();
 
+  // //Guard 
+  // if(assetMapping.length!>1&&
+  //   receipts.length!>1&&
+  //   imsActivity.length!>1
+  //   ){ 
+  //     return res.status(500).json({success:false});}
   // Aggreate
   //-------------------------Create Data Dictionaries From Source Data----------------------------------
   const receiptsQty = AggregateToUniqueDictionary(
@@ -159,5 +173,61 @@ export default async function handler(
 
   const itemModel = Array.from(modelCollection.collection);
   const expenseModel = Array.from(expenseCollection.expenseCollection);
+  const items :Item[]= Array.from(modelCollection.collection.values());
+  const expenses :{[key:string]:any}[]= Array.from(expenseCollection.expenseCollection.values());
+
+   await prisma.$queryRaw`truncate table ItemModel`
+  for(const record  of  items){
+     await prisma.itemModel.create({
+      data: {
+        GL:record.GlAccount,
+        ItemCode:record.ItemCode,
+        StandardCost:record.StandardCost,
+        BeginInvQty:record.BeginInvQty,
+        BeginInvValue:record.BeginInvValue,
+        EndInvQty:record.EndInvQty,
+        EndInvValue:record.EndInvValue,
+        AdjustmentInvQty:0,
+        AdjustmentInvValue:0,
+        ReceiptQty:record.ReceiptQty,
+        ReceiptValue:record.ReceiptValue,
+        UsageQty:record.UsageQty,
+        UsageValue:record.UsageValue,
+        ImsReceiptQty:record.ImsReceiptQty,
+        AccuralQty:record.AccuralReversalQty,
+        AccuralValue:record.AccuralValue,
+        AccuralReversalQty:record.AccuralReversalQty,
+        AccuralReversalValue:record.AccuralReversalValue,
+        AdjReceiptQty:0,
+        AdjReceiptValue:0,
+        AllocatedExpense:record.AllocatedExpense,
+        UnallocatedExpense:record.UnallocatedExpense,
+        Hurdle:record.Hurdle
+      } as ItemModel
+    })
+  }
+
+//   async function insertModels(items:{[key:string]:any}[],expenses:{[key:string]:any}[]){
+//     let itemData = '';
+//     let expenseData = '';
+  
+//     for(const item of items){
+//       itemData += ','+Object.values(item).join(',')+'\n'  
+//     }
+
+//     for(const record of expenses){
+//       expenseData += ','+Object.values(record).join(',')+'\n'  
+//     }
+// console.log(path.join(process.cwd(),'/data/item.csv'))
+//      writeFileSync(path.join(process.cwd(),'/data/item.csv'),itemData);
+//      writeFileSync(path.join(process.cwd(),'/data/expense.csv'),expenseData);
+//     const procNAme = `bulk_insert_ExpenseDetail`
+//      const result = await prisma.$executeRaw`${procNAme}`
+
+  
+//   }
+
+//   await insertModels(items,expenses);
+
   res.status(200).json({itemModel:itemModel,expenseModel:expenseModel});
 }
