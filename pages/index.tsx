@@ -2,22 +2,24 @@ import { ExpenseDetail } from "../containerModel/Models/ExpenseItem";
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { BlockContainerButtons } from '../components/BlockContainerButtons/BlockContainerButtons'
 import { BlockContainerLinks } from '../components/BlockContainerLinks/BlockContainerLinks'
 import DataContext from "../components/context/data-context";
 import { Item } from '../containerModel/Models/Item'
 import styles from '../styles/Home.module.css'
-
+// import ClipLoader from "react-spinners/ClipLoader";
+import { BeatLoader } from "react-spinners";
 
 
 const Home: NextPage = () => {
-
+BeatLoader
 // const orbitalLinks = [
 //   { url: '/Table '; heading: string; desc: string },
 //   { url: string; heading: string; desc: string }
 //   { url: string; heading: string; desc: string }
 // ]
+const [ loading,setLoading] = useState<boolean>(false);
 
   async function updateExpenseTableHandler(e: { preventDefault: any }){
     e.preventDefault;
@@ -27,13 +29,16 @@ const Home: NextPage = () => {
   
   async function updateTableHandler(e: { preventDefault: any }, url:string){
     e.preventDefault;
+    setLoading(true);
   await fetch(url)
+  .then(()=>setLoading(false))
 
   }
 
   const appContext = useContext(DataContext);
 
   const setCurrentModel = async (e: { preventDefault: any },url:string) => {
+    setLoading(true);
     await fetch(`/api/setCurrentModel`)
       .then((response) => response.json())
       .then((data) => {        
@@ -41,8 +46,10 @@ const Home: NextPage = () => {
         const expenseMap = new Map<string,ExpenseDetail>(data.expenseModel)
         appContext.updateItemMap(itemMap);
         appContext.updateExpenseMap(expenseMap);
+        setLoading(false);
       });
   };
+
  const items = [
   {url: '/api/updateTable?table=expenseMapping', heading: 'Expense Mapping', desc:'re-initalize source data for the expense mappings' ,handler:updateTableHandler},
   {url: '/api/updateTable?table=Receipts', heading: 'Receipts', desc:'re-initalize source data for the ap receipts' ,handler:updateTableHandler},
@@ -79,6 +86,12 @@ const links = [
       <BlockContainerButtons items={items} />
       <div className={styles.contentTitle}>
         <h2>Update Model</h2>
+      
+        <BeatLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
       </div>
       <BlockContainerButtons items={itemsRunModel} />
       <div className={styles.contentTitle}>
