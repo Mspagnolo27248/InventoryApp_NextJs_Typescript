@@ -130,7 +130,7 @@ StandardCost:0  });
     });
     setData(updatedData);
 
-    const output = await fetch("/api/expenseMapping", {
+    const output = await fetch("/api/assetMapping", {
       method: "POST",
       body: JSON.stringify(editFormData),
     });
@@ -165,7 +165,7 @@ StandardCost:0  });
 
   return (
     <Fragment>
-    <div>ExpenseMappingPage</div>
+    <div>Asset Mapping</div>
     <div>
     <input
       type="text"

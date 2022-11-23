@@ -36,9 +36,14 @@ export const menuItems = [
         url: "FillsPage",
       },
       {
-        name: "Expense Mapping",
-        url: "ExpenseMappingPage",
+        name: "IMS Activity",
+        url: "#",
       },
+      {
+        name: "BOM",
+        url: "#",
+      },
+   
     ],
   },
   {
