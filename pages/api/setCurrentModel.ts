@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import {
   BOM,
-  ExpenseDetail,
+
   ExpenseMapping,
   Fills,
   ItemModel,
@@ -13,6 +13,7 @@ import path  from "path";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ExpenseCollection } from "../../containerModel/Models/ExpenseCollection";
 import { Item } from "../../containerModel/Models/Item";
+import { ExpenseDetail } from "../../containerModel/Models/ExpenseItem";
 import { ItemCollection } from "../../containerModel/Models/ItemCollection";
 import { AggregateToUniqueDictionary } from "../../containerModel/utils/Utils";
 
@@ -174,7 +175,7 @@ export default async function handler(
   const itemModel = Array.from(modelCollection.collection);
   const expenseModel = Array.from(expenseCollection.expenseCollection);
   const items :Item[]= Array.from(modelCollection.collection.values());
-  const expenses :{[key:string]:any}[]= Array.from(expenseCollection.expenseCollection.values());
+  const expenses :ExpenseDetail[]= Array.from(expenseCollection.expenseCollection.values());
 
    await prisma.$queryRaw`truncate table ItemModel`
   for(const record  of  items){
@@ -207,27 +208,16 @@ export default async function handler(
     })
   }
 
-//   async function insertModels(items:{[key:string]:any}[],expenses:{[key:string]:any}[]){
-//     let itemData = '';
-//     let expenseData = '';
-  
-//     for(const item of items){
-//       itemData += ','+Object.values(item).join(',')+'\n'  
-//     }
+  await prisma.$queryRaw`truncate table [ExpenseDetail]`
+  for(const record  of  expenses){
+    await prisma.expenseDetail.create({
+     data: record
+   })
+ }
 
-//     for(const record of expenses){
-//       expenseData += ','+Object.values(record).join(',')+'\n'  
-//     }
-// console.log(path.join(process.cwd(),'/data/item.csv'))
-//      writeFileSync(path.join(process.cwd(),'/data/item.csv'),itemData);
-//      writeFileSync(path.join(process.cwd(),'/data/expense.csv'),expenseData);
-//     const procNAme = `bulk_insert_ExpenseDetail`
-//      const result = await prisma.$executeRaw`${procNAme}`
 
-  
-//   }
 
-//   await insertModels(items,expenses);
+
 
   res.status(200).json({itemModel:itemModel,expenseModel:expenseModel});
 }

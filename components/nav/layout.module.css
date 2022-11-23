@@ -9,7 +9,17 @@
     height: 5rem;
     background-color: #202020;
   }
+
+  .navigation{
+    float: right;
+  }
+  .navigation a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1rem;
   
+
+  }
   .logo {
     font-size: 1.5rem;
     color: white;
@@ -23,18 +33,29 @@
   
   .logo a {
     text-decoration: none;
-    color: #94fdfd;
+    color: white;
+
   }
-  
-  .navigation a {
+
+  .navigation a:hover,
+  .navigation a:active {
     text-decoration: none;
-    color: #74dacc;
-    font-size: 1rem;
+    color: red;
+
   }
   
+
+  .header img {
+   display: inline-block;
+   background-color: white;
+  }
+.navigation ul {
+  display:inline-block;
+}
   .link{
     padding: 5px;
-    display:inline;
+    display:inline-block;
+    min-width: 110px;
   }
 
   @media (min-width: 768px) {
@@ -44,5 +65,6 @@
   
     .navigation a {
       font-size: 1.5rem;
+
     }
   }

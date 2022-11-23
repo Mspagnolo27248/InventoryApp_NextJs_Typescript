@@ -2,7 +2,7 @@ import { ExpenseDetail } from "../containerModel/Models/ExpenseItem";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BlockContainerButtons } from "../components/BlockContainerButtons/BlockContainerButtons";
 import { BlockContainerLinks } from "../components/BlockContainerLinks/BlockContainerLinks";
 import DataContext from "../components/context/data-context";
@@ -10,12 +10,27 @@ import { Item } from "../containerModel/Models/Item";
 import styles from "../styles/Home.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PrismaClient } from "@prisma/client";
 
-const Home: NextPage = () => {
+const Home: NextPage = (props:{[key:string]:string} ) => {
   const appContext = useContext(DataContext);
 
   const notify = (msg: string) => toast.info(msg);
 
+
+  useEffect(()=>{
+    let expenses:[key:string,model:ExpenseDetail][] = JSON.parse(props.expenseModel);
+    let items:[key:string,model:Item][] = JSON.parse(props.itemModel);
+
+    if(expenses.length>0&&items.length>0){
+      let itemMap = new Map<string, Item>(items);
+      let expenseMap = new Map<string, ExpenseDetail>(expenses);
+      appContext.updateItemMap(itemMap);
+      appContext.updateExpenseMap(expenseMap);
+    }
+  
+  },
+    [])
   
   async function updateTableHandler(e: { preventDefault: any }, url: string) {
     e.preventDefault;
@@ -153,3 +168,52 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+
+export async function getServerSideProps() {
+  const prisma = new PrismaClient();
+
+ const items = await   prisma.itemModel.findMany();
+ const expenses = await prisma.expenseDetail.findMany();
+const itemModel = items.map((data)=>{
+  return  [data.ItemCode, 
+    new Item(
+      data.GL,
+      data.ItemCode,    
+      data.StandardCost,
+      data.BeginInvQty,
+      data.BeginInvValue,
+      data.EndInvQty,
+      data.EndInvValue,
+      data.ReceiptQty,
+      data.ReceiptValue,
+      data.UsageQty,
+      data.UsageValue,
+      data.ImsReceiptQty,
+      data.AccuralReversalQty,
+      data.AccuralReversalValue,
+      data.AccuralQty,
+      data.AccuralValue,
+      data.AdjReceiptQty,
+      data.AdjReceiptValue,
+      data.AllocatedExpense,
+      data.UnallocatedExpense,
+      data.Hurdle)]
+})
+const expenseModel = expenses.map((data)=>{
+return   [data.ProductKey,new ExpenseDetail(
+  data.ProductKey,
+  data.ExpenseGl||'999999-99',
+  data.ImsCode,
+  data.TotalPartFillsQty||0,
+  data.SpecificPartUsageQty||0,
+  data.AllocatedExpenseDollars||0,
+  data.TotalImsUsageDollars||0 )]
+})
+  return {
+    props: {
+      itemModel: JSON.stringify(itemModel),
+      expenseModel:JSON.stringify(expenseModel)
+    },
+  };
+}

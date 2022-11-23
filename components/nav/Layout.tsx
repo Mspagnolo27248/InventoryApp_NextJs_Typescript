@@ -19,8 +19,9 @@ export  const Layout = (props: {
  
   return (
     <Fragment>
-       {/* <Image src='/logo.svg' alt='logo' width={50} height={10}></Image> */}
+       
         <Nav links={navs}/>
+      
          <Dropdown links={menuItems} />
         <main>{props.children}</main>
     </Fragment>
