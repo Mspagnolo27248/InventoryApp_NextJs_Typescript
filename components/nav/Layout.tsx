@@ -19,11 +19,20 @@ export  const Layout = (props: {
  
   return (
     <Fragment>
-       
+       <header style={
+        {position:"fixed",
+        top:"0",
+        width:"100%",
+        zIndex:"100"
+        }}>
+
+      
         <Nav links={navs}/>
       
          <Dropdown links={menuItems} />
+         </header>
         <main>{props.children}</main>
+   
     </Fragment>
   )
 }

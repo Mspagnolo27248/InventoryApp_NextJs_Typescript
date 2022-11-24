@@ -37,11 +37,11 @@ export const menuItems = [
       },
       {
         name: "IMS Activity",
-        url: "#",
+        url: "ImsActivityPage",
       },
       {
         name: "BOM",
-        url: "#",
+        url: "BillOfMaterialPage",
       },
    
     ],

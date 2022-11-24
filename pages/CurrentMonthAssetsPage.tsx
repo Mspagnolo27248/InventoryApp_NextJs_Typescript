@@ -158,9 +158,11 @@ const CurrentMonthAssetsPage: NextPage = () => {
         </button>
       </div>
 
-      {/* <ItemTable itemModel={appContext.items} /> */}
+     <div className="verticalScroll">
+     <Grid data={data} columns={columnNames} search={true} sort={true} />
+     </div>
 
-      <Grid data={data} columns={columnNames} search={true} sort={true} />
+
     </Fragment>
   );
 };

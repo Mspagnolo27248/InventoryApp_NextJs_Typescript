@@ -1,17 +1,10 @@
 import { Fills, PrismaClient } from "@prisma/client";
-import { strict } from "assert";
 import type { NextPage } from "next";
-import {
-  Fragment,
-  Key,
-  MouseEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { Fragment, Key, MouseEvent, useEffect, useState } from "react";
 import { EditableRow } from "../components/table-mds/components/EditableRow";
 import { ReadOnlyRow } from "../components/table-mds/components/ReadOnlyRow";
 import classes from "../components/table-mds/components/Rows.module.css";
+
 
 const FillsPage: NextPage = (props: { [key: string]: any }) => {
   const fillsArray = props.fills.map((data: Fills) => {
@@ -46,7 +39,6 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     "QtyOrBottle",
   ];
 
-  
   const prettyNames = [
     "ID",
     "Container",
@@ -61,7 +53,6 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     "Fill Qty",
     "Qty Or Bottle",
   ];
-
 
   //State Varibles
   const [data, setData] = useState(fillsArray);
@@ -133,10 +124,9 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     idx: number | null
   ) => {
     event.preventDefault();
-    if(idx===null){
+    if (idx === null) {
       setEditId(null);
-    }
-    else{
+    } else {
       setEditId(item.id);
     }
     setEditFormData(item);
@@ -196,52 +186,52 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
     setFilteredData(newFilteredData);
   }, [data, searchField]);
 
-  const dynamicStyle = Object.values(fillsArray[0]).map((item,idx)=>{
-    const valueWidth:number = item?.toString().length||1;
-    return  (
-      { border: "none",
+  const dynamicStyle = Object.values(fillsArray[0]).map((item, idx) => {
+    const valueWidth: number = item?.toString().length || 1;
+    return {
+      border: "none",
       backgroundColor: "inherit",
       cursor: "pointer",
       fontWeight: "bolder",
-      width:`${valueWidth*6}px`,
-      minWidth:"70px"
-   }
-
-    )  
-  })
-
-
+      width: `${valueWidth * 6}px`,
+      minWidth: "70px",
+    };
+  });
 
   return (
     <Fragment>
-      <div>Current Month Receipts</div>
+      <div>Current Month Fills</div>
       <div>
         <input
           type="text"
           name="tableSearch"
           onChange={handleSearchBoxFilter}
-         
+          placeholder="Search"
         ></input>
       </div>
+
+      <div className="verticalScroll">
+
+   
       <form>
         <table className={classes.tableGrid}>
           <thead>
             <tr key={999999}>
               {columnNames.map((item, idx) => {
-         
                 return (
                   <th key={idx}>
                     <button
                       type="button"
                       name={item}
                       onClick={(event) => handleSortClick(event)}
-                     style={dynamicStyle[idx]}
+                      style={dynamicStyle[idx]}
                     >
                       {prettyNames[idx]}
                     </button>
                   </th>
                 );
               })}
+              <th> </th>
             </tr>
           </thead>
           <tbody>
@@ -272,6 +262,7 @@ const FillsPage: NextPage = (props: { [key: string]: any }) => {
           </tbody>
         </table>
       </form>
+      </div>
     </Fragment>
   );
 };
@@ -287,5 +278,3 @@ export async function getServerSideProps() {
     },
   };
 }
-
-

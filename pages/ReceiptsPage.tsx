@@ -208,6 +208,7 @@ const ReceiptsPages: NextPage = (props: { [key: string]: Receipts[] }) => {
                   </th>
                 );
               })}
+                   <th> </th>
             </tr>
           </thead>
           <tbody>

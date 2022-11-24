@@ -15,6 +15,7 @@
 
 .featureItem{
     display: inline-block;
+    vertical-align: middle;
 
 }
 
