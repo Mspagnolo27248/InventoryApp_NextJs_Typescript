@@ -26,6 +26,8 @@ const CurrentMonthAssetsPage: NextPage = () => {
   const getCurrentModel = async (e: { preventDefault: any }) => {
     //fetch asset map
     e.preventDefault;
+
+    const cont = confirm("Should we go forward")
     await fetch(`/api/getCurrentModel`)
       .then((response) => response.json())
       .then((data) => {
