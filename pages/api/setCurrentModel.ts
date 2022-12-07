@@ -216,8 +216,23 @@ export default async function handler(
  }
 
 
+ const assetGlExpense = AggregateToUniqueDictionary(
+  items,
+  "GlAccount",
+  "AllocatedExpense"
+);
+
+const expenseGlExpense = AggregateToUniqueDictionary(
+  expenses,
+  "ExpenseGl",
+  "AllocatedExpenseDollars"
+);
 
 
-
-  res.status(200).json({itemModel:itemModel,expenseModel:expenseModel});
+  res.status(200).json({
+    itemModel:itemModel,
+    expenseModel:expenseModel,
+  expenseGlExpense:expenseGlExpense,
+  assetGlExpense:assetGlExpense
+});
 }

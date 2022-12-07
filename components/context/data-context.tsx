@@ -15,6 +15,12 @@ interface IDataContext {
     expenseMap:Map<string,ExpenseDetail>|undefined;
     updateExpenseMap:(itemModel:Map<string,ExpenseDetail>)=>void;
 
+    expenseGlExpense:any[]|undefined;
+    updateExpenseGlExpense:(expenseGlExpense:any[])=>void;
+
+    assetGlExpense:any[]|undefined;
+    updateAssetGlExpense:(assetGlExpense:any[])=>void;
+
 
   }
   
@@ -22,12 +28,21 @@ interface IDataContext {
 const DataContext = createContext<IDataContext>({
     items:[],
     updateItems:(Items:Item[])=>{},
+
     expenses:[],
     updateExpenses:(expenses:ExpenseDetail[])=>{},
+
     itemMap:undefined,
     updateItemMap:(itemModel:Map<string,Item>)=>{},
+
     expenseMap:undefined,
-    updateExpenseMap:(itemModel:Map<string,ExpenseDetail>)=>{}
+    updateExpenseMap:(itemModel:Map<string,ExpenseDetail>)=>{},
+
+expenseGlExpense:undefined,
+updateExpenseGlExpense:(expenseGlExpense:any[])=>[],
+
+assetGlExpense:undefined,
+updateAssetGlExpense:(expenseGlExpense:any[])=>[],
 
     })
 
@@ -52,6 +67,18 @@ export function DataContextProvider(props: any) {
   function updateExpenseModelHandler(expenseModel:Map<string,ExpenseDetail>){
     setExpenseModel(expenseModel)
   }
+
+const [assetGlExpense,setAssetGlExpense] = useState<any[]|undefined>(undefined);
+function updateAssetGlExpenseHandler(assetGlExpense:any[]){
+  setAssetGlExpense(assetGlExpense)
+}
+
+const [expenseGlExpense,setExpenseGlExpense] = useState<any[]|undefined>(undefined);
+function updateExpenseGlHandler(expenseGlExpense:any[]){
+setExpenseGlExpense(expenseGlExpense)
+}
+
+
     const context: IDataContext = {
       items: items!,
       updateItems: updateItemsHandler,  
@@ -60,7 +87,13 @@ export function DataContextProvider(props: any) {
       itemMap:itemModel,
       updateItemMap:updateItemModelHandler,
       expenseMap:expenseModel,
-      updateExpenseMap:updateExpenseModelHandler
+      updateExpenseMap:updateExpenseModelHandler,
+      assetGlExpense:assetGlExpense,
+      updateAssetGlExpense:updateAssetGlExpenseHandler,
+      expenseGlExpense:expenseGlExpense,
+      updateExpenseGlExpense:updateExpenseGlHandler
+
+
     };
   
     return (

@@ -21,12 +21,17 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
   useEffect(()=>{
     let expenses:[key:string,model:ExpenseDetail][] = JSON.parse(props.expenseModel);
     let items:[key:string,model:Item][] = JSON.parse(props.itemModel);
+    let assetGlExpense = JSON.parse(props.assetGlExpense);
+    let expenseGlExpense = JSON.parse(props.expenseGlExpense);
 
     if(expenses.length>0&&items.length>0){
       let itemMap = new Map<string, Item>(items);
       let expenseMap = new Map<string, ExpenseDetail>(expenses);
       appContext.updateItemMap(itemMap);
       appContext.updateExpenseMap(expenseMap);
+      appContext.updateAssetGlExpense(assetGlExpense);
+      appContext.updateExpenseGlExpense(expenseGlExpense);
+
     }
   
   },
@@ -45,8 +50,12 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
       .then((data) => {
         const itemMap = new Map<string, Item>(data.itemModel);
         const expenseMap = new Map<string, ExpenseDetail>(data.expenseModel);
+        const expenseGls = data.expenseGlExpense;
+        const assetGls = data.assetGlExpense;
+
         appContext.updateItemMap(itemMap);
         appContext.updateExpenseMap(expenseMap);
+        
       }),
       {
         pending: 'Running Allocation Calcs...',
@@ -246,10 +255,36 @@ return   [data.ProductKey,new ExpenseDetail(
   data.AllocatedExpenseDollars||0,
   data.TotalImsUsageDollars||0 )]
 })
+
+
+const assetGlExpense = await prisma.$queryRaw`
+SELECT 
+[GL]
+,[ItemCode]
+,sum([AllocatedExpense]) as AllocatedExpense
+,sum([UnallocatedExpense]) as UnallocatedExpense
+FROM [NewContainers].[dbo].[ItemModel]
+Group By 
+[GL]
+,[ItemCode]
+order by 
+AllocatedExpense desc
+`
+const expenseGlExpense = await prisma.$queryRaw`
+SELECT 
+[ExpenseGl]
+,sum([AllocatedExpenseDollars]) as AllocatedExpenseDollars 
+FROM [NewContainers].[dbo].[ExpenseDetail]
+Group By 
+[ExpenseGl]
+Order by AllocatedExpenseDollars desc
+`
   return {
     props: {
       itemModel: JSON.stringify(itemModel),
-      expenseModel:JSON.stringify(expenseModel)
+      expenseModel:JSON.stringify(expenseModel),
+      assetGlExpense:JSON.stringify(assetGlExpense),
+      expenseGlExpense:JSON.stringify(expenseGlExpense)    
     },
   };
 }
