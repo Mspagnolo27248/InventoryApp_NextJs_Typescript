@@ -54,15 +54,24 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
         error: 'Promise rejected 🤯'
       })};
 
+const static_items = [  {
+  url: "/api/updateTable?table=expenseMapping",
+  heading: "Expense Mapping",
+  desc: "re-initalize source data for the expense mappings",
+  handler: updateTableHandler,
+},
+{
+  url: "/api/updateTable?table=assetMapping",
+  heading: "Asset Mapping",
+  desc: "re-initalize source data for the asset mappings",
+  handler: updateTableHandler,
+}
+
+]
 
 
   const items = [
-    {
-      url: "/api/updateTable?table=expenseMapping",
-      heading: "Expense Mapping",
-      desc: "re-initalize source data for the expense mappings",
-      handler: updateTableHandler,
-    },
+  
     {
       url: "/api/updateTable?table=Receipts",
       heading: "Receipts",
@@ -85,6 +94,24 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
       url: "/api/updateTable?table=Fills",
       heading: "Filling Activty",
       desc: "re-initalize source data for the product fills",
+      handler: updateTableHandler,
+    },
+    {
+      url: "/api/updateTable?table=BeginInventory",
+      heading: "Begining Invetory",
+      desc: "re-initalize source data for the product fills",
+      handler: updateTableHandler,
+    },
+    {
+      url: "/api/updateTable?table=EndingInv",
+      heading: "Ending  Inventory",
+      desc: "re-initalize source data for the product fills",
+      handler: updateTableHandler,
+    },
+    {
+      url: "/api/updateTable?table=AccuralReversals",
+      heading: "Accural Reversals",
+      desc: "re-initalize source data for the Accural reversals",
       handler: updateTableHandler,
     },
   ];
@@ -125,10 +152,19 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
       </Head>
 
       <div className={styles.contentTitle}>
+        <h2>Mapping Tables from Source Data</h2>
+      </div>
+      <BlockContainerButtons items={static_items} />
+
+
+      <div className={styles.contentTitle}>
         <h2>Initalize Tables from Source Data</h2>
       </div>
       <BlockContainerButtons items={items} />
+
+
       <div className={styles.contentTitle}>
+
         <h2>Update Model</h2>
       </div>
       <BlockContainerButtons items={itemsRunModel} />
