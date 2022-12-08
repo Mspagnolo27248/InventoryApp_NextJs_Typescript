@@ -31,6 +31,7 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
       appContext.updateExpenseMap(expenseMap);
       appContext.updateAssetGlExpense(assetGlExpense);
       appContext.updateExpenseGlExpense(expenseGlExpense);
+      appContext.updateAssetGlExpense(assetGlExpense);
 
     }
   
@@ -146,9 +147,14 @@ const static_items = [  {
       desc: `Current Expense Output`,
     },
     {
-      url: "/CurrentMonthAssets",
-      heading: `Live Model`,
-      desc: `Current Months Model`,
+      url: "/AssetExpenseGlPage",
+      heading: `Asset Entry`,
+      desc: `Container Consumption by Asset Gl`,
+    },
+    {
+      url: "/ExpenseGlPage",
+      heading: `Expense Gl Entry`,
+      desc: `Container Consumption by Expense Gl`,
     },
   ];
 

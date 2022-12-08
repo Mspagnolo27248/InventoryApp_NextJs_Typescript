@@ -230,8 +230,8 @@ const expenseGlExpense = AggregateToUniqueDictionary(
 
 
   res.status(200).json({
-    itemModel:itemModel,
-    expenseModel:expenseModel,
+  itemModel:itemModel,
+  expenseModel:expenseModel,
   expenseGlExpense:expenseGlExpense,
   assetGlExpense:assetGlExpense
 });

@@ -44,8 +44,12 @@ export const menuItems = [
         url: "BillOfMaterialPage",
       },
       {
-        name: "Expense Gls",
+        name: "Expense By Gl's",
         url: "ExpenseGlPage",
+      },
+      {
+        name: "Asset Expense Gl's",
+        url: "AssetExpenseGlPage",
       },
    
     ],

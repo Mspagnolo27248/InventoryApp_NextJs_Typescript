@@ -50,3 +50,9 @@ th {
   position: sticky;
   top: 0;
 }
+
+.tableContainer th {
+  min-width: 9rem;
+  margin: .5rem;
+  padding: .5rem ;
+}

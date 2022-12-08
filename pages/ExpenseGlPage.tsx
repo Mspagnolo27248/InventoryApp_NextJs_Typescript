@@ -10,10 +10,9 @@ const ExpenseGlPage: NextPage = () => {
   let columnNames: any[] = [
     "Expense GL",
     {name:'Allocated Expense Dollars',
-    formatter: (cell) => `${cell.toLocaleString("en-US")}`
+    formatter: (cell:any) => `${cell.toLocaleString("en-US")}`
 
-    },
-    "Allocated Expense Dollars",
+    }
   ];
 
   if (expenseGlExpense) {
@@ -29,7 +28,7 @@ const ExpenseGlPage: NextPage = () => {
 
   return (
     <Fragment>
-      <div className="verticalScroll">
+      <div className="verticalScroll tableContainer">
         <Grid data={data} columns={columnNames} search={true} sort={true} />
       </div>
     </Fragment>
