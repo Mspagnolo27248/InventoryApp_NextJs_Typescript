@@ -216,18 +216,28 @@ export default async function handler(
  }
 
 
- const assetGlExpense = AggregateToUniqueDictionary(
-  items,
-  "GlAccount",
-  "AllocatedExpense"
-);
-
-const expenseGlExpense = AggregateToUniqueDictionary(
-  expenses,
-  "ExpenseGl",
-  "AllocatedExpenseDollars"
-);
-
+ const assetGlExpense = await prisma.$queryRaw`
+ SELECT 
+ [GL]
+ ,[ItemCode]
+ ,sum([AllocatedExpense]) as AllocatedExpense
+ ,sum([UnallocatedExpense]) as UnallocatedExpense
+ FROM [NewContainers].[dbo].[ItemModel]
+ Group By 
+ [GL]
+ ,[ItemCode]
+ order by 
+ AllocatedExpense desc
+ `
+ const expenseGlExpense = await prisma.$queryRaw`
+ SELECT 
+ [ExpenseGl]
+ ,sum([AllocatedExpenseDollars]) as AllocatedExpenseDollars 
+ FROM [NewContainers].[dbo].[ExpenseDetail]
+ Group By 
+ [ExpenseGl]
+ Order by AllocatedExpenseDollars desc
+ `
 
   res.status(200).json({
   itemModel:itemModel,

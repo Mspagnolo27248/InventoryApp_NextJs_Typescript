@@ -56,6 +56,8 @@ const Home: NextPage = (props:{[key:string]:string} ) => {
 
         appContext.updateItemMap(itemMap);
         appContext.updateExpenseMap(expenseMap);
+        appContext.updateAssetGlExpense(assetGls);
+        appContext.updateExpenseGlExpense(expenseGls);
         
       }),
       {

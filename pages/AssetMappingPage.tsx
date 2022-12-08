@@ -128,6 +128,7 @@ StandardCost:0  });
         return item;
       }
     });
+
     setData(updatedData);
 
     const output = await fetch("/api/assetMapping", {
@@ -149,20 +150,40 @@ StandardCost:0  });
     setFilteredData(newFilteredData);
   }, [data, searchField]);
 
-  const dynamicStyle = Object.values(assetMapping[0]).map((item, idx) => {
-    const valueWidth: number = item?.toString().length || 1;
-    return {
+  let dynamicStyle:{
+    border: string,
+    backgroundColor: string,
+    cursor:string,
+    fontWeight:string,
+    width: string,
+    minWidth: string}[] = []
+    
+  if(assetMapping.length>0){
+     dynamicStyle = Object.values(assetMapping[0]).map((item, idx) => {
+      const valueWidth: number = item?.toString().length || 1;
+      return {
+        border: "none",
+        backgroundColor: "inherit",
+        cursor: "pointer",
+        fontWeight: "bolder",
+        width: `${valueWidth * 6}px`,
+        minWidth: "70px",
+      };
+    });
+  }
+  else{
+     dynamicStyle = [{
       border: "none",
       backgroundColor: "inherit",
       cursor: "pointer",
       fontWeight: "bolder",
-      width: `${valueWidth * 6}px`,
+      width: `${16 * 6}px`,
       minWidth: "70px",
-    };
-  });
+    }]
+  }
 
 
-
+if(assetMapping.length>0){
   return (
     <Fragment>
     <div>Asset Mapping</div>
@@ -226,6 +247,14 @@ StandardCost:0  });
   </div>
 </Fragment>
   )
+}
+else{
+  return (
+    <></>
+  )
+}
+
+
 }
 
 
