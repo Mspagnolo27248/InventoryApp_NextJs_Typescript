@@ -1,0 +1,63 @@
+"filename", "language", "CSS", "JSON with Comments", "JSON", "Markdown", "Prisma", "TypeScript React", "JavaScript", "XML", "SQL", "TypeScript", "Properties", "comment", "blank", "total"
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\.env", "Properties", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 2, 7
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\.eslintrc.json", "JSON", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\README.md", "Markdown", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 15, 35
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\BlockContainerButtons\BlockContainerButtons.module.css", "CSS", 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 51
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\BlockContainerButtons\BlockContainerButtons.tsx", "TypeScript React", 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 5, 31
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\BlockContainerLinks\BlockContainerLinks.module.css", "CSS", 35, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 47
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\BlockContainerLinks\BlockContainerLinks.tsx", "TypeScript React", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 5, 32
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\ItemTable\ItemTable.tsx", "TypeScript React", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 6, 27
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\context\data-context.tsx", "TypeScript React", 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 31, 108
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\dropdown\DropContent.tsx", "TypeScript React", 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 8, 26
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\dropdown\DropDown.tsx", "TypeScript React", 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 7, 41
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\dropdown\dropdown.module.css", "CSS", 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 70
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\nav\Layout.tsx", "TypeScript React", 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 9, 38
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\nav\Nav.tsx", "TypeScript React", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 3, 26
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\nav\layout.module.css", "CSS", 55, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14, 70
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\table-mds\components\EditableRow.tsx", "TypeScript React", 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 5, 41
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\table-mds\components\ReadOnlyRow.tsx", "TypeScript React", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\table-mds\components\Rows.module.css", "CSS", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 14
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\tableContainer\tableContainer.module.css", "CSS", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 11
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\components\tableContainer\tableContainer.tsx", "TypeScript React", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 4, 14
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\Models\ExpenseCollection.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 91, 0, 12, 22, 125
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\Models\ExpenseItem.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 0, 0, 6, 39
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\Models\Item.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 0, 0, 19, 74
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\Models\ItemCollection.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 95, 0, 1, 20, 116
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\interfaces.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 40, 10, 65
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\utils\CSVReader.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 0, 7, 52
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\containerModel\utils\Utils.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 0, 1, 6, 50
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\content\menus.js", "JavaScript", 0, 0, 0, 0, 0, 0, 72, 0, 0, 0, 0, 0, 4, 76
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\next.config.js", "JavaScript", 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 1, 2, 8
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\package-lock.json", "JSON", 0, 0, 5669, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5670
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\package.json", "JSON", 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 32
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\AssetExpenseGlPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 8, 50
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\AssetMappingPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 241, 0, 0, 0, 0, 0, 2, 29, 272
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\BillOfMaterialPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 13, 60
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\CurrentMonthAssetsPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 138, 0, 0, 0, 0, 0, 3, 32, 173
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\CurrentMonthExpensePage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 4, 43
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ExpenseGlPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 8, 39
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ExpenseMappingPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 202, 0, 0, 0, 0, 0, 3, 24, 229
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ExpenseMappingPageDNU.tsx", "TypeScript React", 0, 0, 0, 0, 0, 73, 0, 0, 0, 0, 0, 0, 35, 108
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\FillsPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 257, 0, 0, 0, 0, 0, 2, 22, 281
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\FillsPageDNU.tsx", "TypeScript React", 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 15, 70
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ImsActivityPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 13, 70
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ReceiptsPage.tsx", "TypeScript React", 0, 0, 0, 0, 0, 235, 0, 0, 0, 0, 0, 2, 20, 257
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\ReceiptsPageDNU.tsx", "TypeScript React", 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 14, 74
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\_app.tsx", "TypeScript React", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 4, 18
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\assetMapping.tsx", "TypeScript React", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 1, 10, 38
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\expenseMapping.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 22, 0, 1, 8, 31
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\fills.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 10, 42
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\getCurrentModel.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 51, 0, 1, 10, 62
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\hello.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1, 3, 14
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\receipts.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 0, 8, 12, 57
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\setCurrentModel.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 202, 0, 23, 24, 249
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\api\updateTable.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 12, 13, 41
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\pages\index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 264, 0, 0, 0, 0, 0, 0, 34, 298
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\prisma\migrations\20221101193326_init\migration.sql", "SQL", 0, 0, 0, 0, 0, 0, 0, 0, 163, 0, 0, 12, 18, 193
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\prisma\schema.prisma", "Prisma", 0, 0, 0, 0, 147, 0, 0, 0, 0, 0, 0, 0, 21, 168
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\public\logo.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 83, 0, 0, 0, 1, 1, 85
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\public\vercel.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 4
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\styles\Home.module.css", "CSS", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\styles\globals.css", "CSS", 47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 7, 58
+"c:\Users\Mspag\Desktop\typescript-projects\NewContainerApp\container-app\tsconfig.json", "JSON with Comments", 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 22
+"Total", "-", 249, 21, 5703, 20, 147, 2098, 77, 87, 163, 747, 1, 145, 676, 10134
